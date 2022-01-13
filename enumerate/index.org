@@ -1,0 +1,43 @@
+#+HTML_HEAD: <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR+zwDAROtph0PXGte6ia8heboACF9R5l/DiY+WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous"> <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8+w2LAIftJEULZABrF9PPFv+tVkH" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js" integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB+w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+#+HTML_HEAD: <link rel="stylesheet" href="../strict.css">
+#+TITLE: Tree enumeration
+#+OPTIONS: num:nil
+#+OPTIONS: toc:nil
+
+There exists a neat bijection between natural numbers and binary trees
+[[https://www.cs.virginia.edu/~lat7h/blog/posts/434.html][(Tychonievich 2013)]].
+
+A tree for a number $n$ is either empty if $n = 0$, or it has two children
+corresponding to numbers from de-interleaving binary representation of $n - 1$:
+taking separately odd and even bits, for example $48 = 110000_2 \to (100_2, 100_2) = (4, 4)$
+
+#+attr_html: :class over
+[[../asts/2tree-FEL.svg]]
+
+* M-ary labeled tree enumeration
+Extending the enumeration to m-ary labeled trees with $\ell$ labels yields that
+a tree for a number $n$ is either empty with a label $n$ if $n < \ell$, or it has $m$ children
+corresponding to $m$ numbers given by splitting binary representation of $n-\ell$.
+
+* Label constraints
+There is nothing special in base 2 specifically, which can be subdued in case
+when there is more limitations on sets of labels certain parents can have as their
+children.
+For example if the parent can only have as it's left child 3 label nodes $\in \{0, 1,
+2\}$, this forces 11_2 as a number for the left child to be either skippable or
+redundant, yet using base 3 clears this issue. From this example it is also evident
+that if label nodes $\in \{0, 1, 2\}$ are not permitted to have any children, this will break
+the interleaving splitting for the parent, since there is only one bit for the
+left child and the rest for the rest. Insofar the interleaving can be done in an arbitrary
+way as long as bits of each weave are not overlapping, and the amount of bits
+allocated for each branch can be calculated from it's entropy, especially if
+there is a probability defined on labels. One thing that
+is eluding however, is probabilistic enumeration of labels within a branch itself
+without a significant repetition.
+
+* Matching
+The bijection is also nice for the purpose of (sub)tree matching, even more so, since
+for two trees with numbers $n_1$ and $n_2$ if $n_1 > n_2$ then
+$n_1$ cannot be a subtree of $n_2$, with the rest following similarly to merkle
+hashing, except that the hash is invertible and without collisions.

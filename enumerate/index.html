@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!--  -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tree enumeration</title>
+<meta name="author" content="Big Dissapointment" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR+zwDAROtph0PXGte6ia8heboACF9R5l/DiY+WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous"> <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8+w2LAIftJEULZABrF9PPFv+tVkH" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js" integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB+w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<link rel="stylesheet" href="../strict.css">
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Tree enumeration</h1>
+<p>
+There exists a neat bijection between natural numbers and binary trees
+<a href="https://www.cs.virginia.edu/~lat7h/blog/posts/434.html">(Tychonievich 2013)</a>.
+</p>
+
+<p>
+A tree for a number \(n\) is either empty if \(n = 0\), or it has two children
+corresponding to numbers from de-interleaving binary representation of \(n - 1\):
+taking separately odd and even bits, for example \(48 = 110000_2 \to (100_2, 100_2) = (4, 4)\)
+</p>
+
+
+<div id="org57c0f9f" class="figure">
+<p><img src="../asts/2tree-FEL.svg" alt="2tree-FEL.svg" class="over" />
+</p>
+</div>
+
+<div id="outline-container-orgd7a7326" class="outline-2">
+<h2 id="orgd7a7326">M-ary labeled tree enumeration</h2>
+<div class="outline-text-2" id="text-orgd7a7326">
+<p>
+Extending the enumeration to m-ary labeled trees with \(\ell\) labels yields that
+a tree for a number \(n\) is either empty with a label \(n\) if \(n < \ell\), or it has \(m\) children
+corresponding to \(m\) numbers given by splitting binary representation of \(n-\ell\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org23aba2f" class="outline-2">
+<h2 id="org23aba2f">Label constraints</h2>
+<div class="outline-text-2" id="text-org23aba2f">
+<p>
+There is nothing special in base 2 specifically, which can be subdued in case
+when there is more limitations on sets of labels certain parents can have as their
+children.
+For example if the parent can only have as it's left child 3 label nodes \(\in \{0, 1,
+2\}\), this forces 11<sub>2</sub> as a number for the left child to be either skippable or
+redundant, yet using base 3 clears this issue. From this example it is also evident
+that if label nodes \(\in \{0, 1, 2\}\) are not permitted to have any children, this will break
+the interleaving splitting for the parent, since there is only one bit for the
+left child and the rest for the rest. Insofar the interleaving can be done in an arbitrary
+way as long as bits of each weave are not overlapping, and the amount of bits
+allocated for each branch can be calculated from it's entropy, especially if
+there is a probability defined on labels. One thing that
+is eluding however, is probabilistic enumeration of labels within a branch itself
+without a significant repetition.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf6098ac" class="outline-2">
+<h2 id="orgf6098ac">Matching</h2>
+<div class="outline-text-2" id="text-orgf6098ac">
+<p>
+The bijection is also nice for the purpose of (sub)tree matching, even more so, since
+for two trees with numbers \(n_1\) and \(n_2\) if \(n_1 > n_2\) then
+\(n_1\) cannot be a subtree of \(n_2\), with the rest following similarly to merkle
+hashing, except that the hash is invertible and without collisions.
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>
