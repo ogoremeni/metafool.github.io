@@ -12,7 +12,7 @@ A tree for a number $n$ is either empty if $n = 0$, or it has two children
 corresponding to numbers from de-interleaving binary representation of $n - 1$:
 taking separately odd and even bits, for example $48 = 110000_2 \to (100_2, 100_2) = (4, 4)$
 
-#+attr_html: :class over
+#+attr_html: :class double
 [[../asts/2tree-FEL.svg]]
 
 * M-ary labeled tree enumeration
